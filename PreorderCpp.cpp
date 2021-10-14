@@ -39,10 +39,11 @@ private:
     TreeNodeNew(int val)
     {
         TreeNode* node = new TreeNode(val);
-        if(!node) return(node);
-        node->val = val;
-        node->left = NULL;
-        node->right = NULL;
+        if(node != nullptr) {
+            node->val = val;
+            node->left = nullptr;
+            node->right = nullptr;
+        }
         return(node);
     }
 
@@ -55,7 +56,7 @@ public:
         if(start >= end) return nullptr;
         // root = new TreeNode(pre[start]);
         if( (root = new TreeNode(pre[start])) == nullptr ) return(root);
-        printf("node(%d)\n",pre[start]);
+        // printf("node(%d)\n",pre[start]);
         int split;
         // printf("start %d, end %d\n", start, end);
         for( split=start+1; split < end; ++split) {
@@ -63,10 +64,9 @@ public:
                 break;
             }
         }
-        // printf("split %d\n", split);
-        printf("left[%d,%d]\n", start+1, split);
+        // printf("left[%d,%d]\n", start+1, split);
         root->left = TreeBuild(pre, start+1, split);
-        printf("right[%d,%d]\n", split, end);
+        // printf("right[%d,%d]\n", split, end);
         root->right = TreeBuild(pre, split, end);
         return (root);
     }
@@ -74,10 +74,6 @@ public:
     TreeNode*
     bstFromPreorder(std::vector<int>& preorder) // preorderSize
     {
-        // printf("size:%d\n",preorder.size());
-        // for( int ix=0; ix<preorder.size(); ++ix) {
-        //     printf("  %d\n",preorder[ix]);
-        // }
         TreeNode* root = TreeBuild(preorder, 0, preorder.size());
         return(root);
     }
